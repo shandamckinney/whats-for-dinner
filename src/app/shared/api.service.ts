@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Student } from './student';
+import { Recipe } from './recipe';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -16,8 +16,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   // Add student
-  AddStudent(data: Student): Observable<any> {
-    let API_URL = `${this.endpoint}/add-student`;
+  AddRecipe(data: Recipe): Observable<any> {
+    let API_URL = `${this.endpoint}/add-recipe`;
     return this.http.post(API_URL, data)
       .pipe(
         catchError(this.errorMgmt)
@@ -25,13 +25,13 @@ export class ApiService {
   }
 
   // Get all students
-  GetStudents() {
+  GetRecipes() {
     return this.http.get(`${this.endpoint}`);
   }
 
-  // Get student
-  GetStudent(id): Observable<any> {
-    let API_URL = `${this.endpoint}/read-student/${id}`;
+  // Get recipe
+  GetRecipe(id): Observable<any> {
+    let API_URL = `${this.endpoint}/read-recipe/${id}`;
     return this.http.get(API_URL, { headers: this.headers })
       .pipe(
         map((res: Response) => {
@@ -42,8 +42,8 @@ export class ApiService {
   }
 
   // Update student
-  UpdateStudent(id, data): Observable<any> {
-    let API_URL = `${this.endpoint}/update-student/${id}`;
+  UpdateRecipe(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/update-recipe/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers })
       .pipe(
         catchError(this.errorMgmt)
@@ -51,8 +51,8 @@ export class ApiService {
   }
 
   // Delete student
-  DeleteStudent(id): Observable<any> {
-    var API_URL = `${this.endpoint}/delete-student/${id}`;
+  DeleteRecipe(id): Observable<any> {
+    var API_URL = `${this.endpoint}/delete-recipe/${id}`;
     return this.http.delete(API_URL)
       .pipe(
         catchError(this.errorMgmt)

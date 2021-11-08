@@ -1,3 +1,3 @@
 module.exports = {
-  db: 'mongodb://localhost:27017/angular8mean'
+  db: 'mongodb+srv://shanda:shanda@cluster0.x963p.mongodb.net/mySecondDatabase?retryWrites=true&w=majority'
 };

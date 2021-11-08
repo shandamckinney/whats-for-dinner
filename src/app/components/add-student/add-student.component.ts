@@ -41,12 +41,12 @@ export class AddStudentComponent implements OnInit {
   /* Reactive book form */
   submitBookForm() {
     this.studentForm = this.fb.group({
-      student_name: ['', [Validators.required]],
-      student_email: ['', [Validators.required]],
-      section: ['', [Validators.required]],
-      subjects: [this.subjectArray],
-      dob: ['', [Validators.required]],
-      gender: ['Male']
+      name: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      ingredients: ['', [Validators.required]],
+      rating: [this.subjectArray],
+      cookTime: ['', [Validators.required]],
+      isSelected: ['']
     })
   }
 
@@ -88,7 +88,7 @@ export class AddStudentComponent implements OnInit {
   /* Submit book */
   submitStudentForm() {
     if (this.studentForm.valid) {
-      this.studentApi.AddStudent(this.studentForm.value).subscribe(res => {
+      this.studentApi.AddRecipe(this.studentForm.value).subscribe(res => {
         this.ngZone.run(() => this.router.navigateByUrl('/students-list'))
       });
     }

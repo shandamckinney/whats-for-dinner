@@ -39,16 +39,15 @@ export class EditStudentComponent implements OnInit {
     private studentApi: ApiService
   ) { 
     var id = this.actRoute.snapshot.paramMap.get('id');
-    this.studentApi.GetStudent(id).subscribe(data => {
+    this.studentApi.GetRecipe(id).subscribe(data => {
       console.log(data.subjects)
       this.subjectArray = data.subjects;
       this.studentForm = this.fb.group({
-        student_name: [data.student_name, [Validators.required]],
-        student_email: [data.student_email, [Validators.required]],
-        section: [data.section, [Validators.required]],
-        subjects: [data.subjects],
-        dob: [data.dob, [Validators.required]],
-        gender: [data.gender]
+        name: [data.name, [Validators.required]],
+        type: [data.type, [Validators.required]],
+        ingredients: [data.ingredients, [Validators.required]],
+        rating: [data.rating],
+        cookTime: [data.cookTime, [Validators.required]]
       })      
     })    
   }
@@ -56,12 +55,11 @@ export class EditStudentComponent implements OnInit {
   /* Reactive book form */
   updateBookForm() {
     this.studentForm = this.fb.group({
-      student_name: ['', [Validators.required]],
-      student_email: ['', [Validators.required]],
-      section: ['', [Validators.required]],
-      subjects: [this.subjectArray],
-      dob: ['', [Validators.required]],
-      gender: ['Male']
+      name: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      ingredients: ['', [Validators.required]],
+      rating: ['', [Validators.required]],
+      cookTime: ['', [Validators.required]]
     })
   }
 
@@ -87,14 +85,6 @@ export class EditStudentComponent implements OnInit {
     }
   }
 
-  /* Date */
-  formatDate(e) {
-    var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
-    this.studentForm.get('dob').setValue(convertDate, {
-      onlyself: true
-    })
-  }
-
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.studentForm.controls[controlName].hasError(errorName);
@@ -105,7 +95,7 @@ export class EditStudentComponent implements OnInit {
     console.log(this.studentForm.value)
     var id = this.actRoute.snapshot.paramMap.get('id');
     if (window.confirm('Are you sure you want to update?')) {
-      this.studentApi.UpdateStudent(id, this.studentForm.value).subscribe( res => {
+      this.studentApi.UpdateRecipe(id, this.studentForm.value).subscribe( res => {
         this.ngZone.run(() => this.router.navigateByUrl('/students-list'))
       });
     }
